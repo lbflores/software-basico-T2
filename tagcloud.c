@@ -14,6 +14,14 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
+#include <getopt.h>
+#include <sys/types.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+
 #define PROGRAM_NAME "tagcloud"
 
 #define AUTHORS \
@@ -28,4 +36,24 @@ usage ()
 int
 main (int argc, char **argv)
 {
+char in_name[80];
+    FILE *in_file;
+    char word[50];
+
+    printf("Enter file name:\n");
+    scanf("%s", in_name);
+
+    in_file = fopen(in_name, "r");
+
+    if (in_file == NULL)
+        printf("Can't open %s for reading.\n", in_name);
+    else
+    {
+        while (fscanf(in_file, "%s", word) != EOF)
+        {
+            printf("%s\n", word);
+        }
+        fclose(in_file);
+    }
+    return 0;
 }
